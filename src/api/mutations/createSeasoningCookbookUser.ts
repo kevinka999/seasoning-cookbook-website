@@ -5,7 +5,7 @@ interface CreateUserRequest {
   nickname: string;
 }
 
-export const createUser = async (
+export const createSeasoningCookbookUser = async (
   data: CreateUserRequest
 ): Promise<SeasoningCookbookUser> => {
   return await httpModule.post<SeasoningCookbookUser>(
