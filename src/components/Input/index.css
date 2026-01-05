@@ -1,0 +1,12 @@
+.minecraft-input {
+  caret-color: white;
+  text-shadow: 2px 2px 0 #3e3e3e;
+}
+
+.minecraft-input::selection {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.minecraft-input::placeholder {
+  text-shadow: none;
+}

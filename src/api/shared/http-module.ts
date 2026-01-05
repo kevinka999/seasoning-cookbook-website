@@ -33,7 +33,7 @@ class HttpModule {
 
   private mergeHeaders(
     module: ApiModule,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): AxiosRequestConfig {
     const defaultHeaders = this.getDefaultHeaders(module);
     const configHeaders = config?.headers || {};
@@ -50,7 +50,7 @@ class HttpModule {
   async get<T>(
     module: ApiModule,
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const fullUrl = this.buildUrl(module, url);
     const mergedConfig = this.mergeHeaders(module, config);
@@ -62,7 +62,7 @@ class HttpModule {
     module: ApiModule,
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const fullUrl = this.buildUrl(module, url);
     const mergedConfig = this.mergeHeaders(module, config);
@@ -74,7 +74,7 @@ class HttpModule {
     module: ApiModule,
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const fullUrl = this.buildUrl(module, url);
     const mergedConfig = this.mergeHeaders(module, config);
@@ -86,7 +86,7 @@ class HttpModule {
     module: ApiModule,
     url: string,
     data?: unknown,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const fullUrl = this.buildUrl(module, url);
     const mergedConfig = this.mergeHeaders(module, config);
@@ -97,7 +97,7 @@ class HttpModule {
   async delete<T>(
     module: ApiModule,
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<T> {
     const fullUrl = this.buildUrl(module, url);
     const mergedConfig = this.mergeHeaders(module, config);

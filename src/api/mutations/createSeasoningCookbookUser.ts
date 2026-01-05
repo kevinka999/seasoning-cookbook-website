@@ -6,11 +6,11 @@ interface CreateUserRequest {
 }
 
 export const createSeasoningCookbookUser = async (
-  data: CreateUserRequest
+  data: CreateUserRequest,
 ): Promise<SeasoningCookbookUser> => {
   return await httpModule.post<SeasoningCookbookUser>(
     "seasoningCookbook",
     "/users",
-    data
+    data,
   );
 };

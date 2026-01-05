@@ -31,3 +31,7 @@ img {
   image-rendering: -moz-crisp-edges;
   image-rendering: crisp-edges;
 }
+
+.minecraft-text-shadow {
+  text-shadow: 2px 2px 0 #3e3e3e;
+}

@@ -8,7 +8,7 @@ interface CreateRecipeRequest {
 }
 
 export const createRecipe = async (
-  data: CreateRecipeRequest
+  data: CreateRecipeRequest,
 ): Promise<Recipe> => {
   return await httpModule.post<Recipe>("seasoningCookbook", "/recipes", data);
 };

@@ -8,7 +8,7 @@ interface GetRecipesParams {
 }
 
 export const getRecipes = async (
-  params?: GetRecipesParams
+  params?: GetRecipesParams,
 ): Promise<Recipe[]> => {
   const queryParams = new URLSearchParams();
 
