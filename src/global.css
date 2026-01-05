@@ -1,0 +1,33 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Minecraft";
+  src: url("/fonts/Minecraft.otf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+  font-family: "Minecraft", system-ui, Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: none;
+  -moz-osx-font-smoothing: grayscale;
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+body {
+  color: #ffffff;
+  background-color: #1a1a1a;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+img {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
