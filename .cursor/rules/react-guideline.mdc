@@ -1,0 +1,135 @@
+---
+alwaysApply: true
+---
+
+# React Guidelines
+
+## Component Format
+
+Always create components using this format:
+
+```typescript
+type ComponentProps = {
+  prop1: string;
+  prop2: number;
+};
+
+export const Component = ({ prop1, prop2 }: ComponentProps) => {
+  return (
+    <div>
+      {prop1} - {prop2}
+    </div>
+  );
+};
+```
+
+**Rules:**
+
+- Use `type ComponentProps` to define props interface
+- Export component as `const Component = ({...props}: ComponentProps) => {...}`
+- Do NOT use `interface` for component props, use `type` instead
+- Do NOT use function declarations like `function Component()`
+
+## Code Comments
+
+- Do NOT add comments in the code
+- Code should be self-explanatory through good naming and structure
+- If explanation is needed, use descriptive variable and function names
+
+## API Integration
+
+### Structure
+
+All API integrations must be created in `/src/api/`:
+
+```
+src/api/
+├── queries/          # GET requests (read operations)
+│   ├── getUserData.ts
+│   └── index.ts
+├── mutations/        # POST, PUT, PATCH, DELETE requests (write operations)
+│   ├── loginUser.ts
+│   └── index.ts
+└── shared/
+    ├── http-module.ts    # HttpModule with HTTP methods
+    └── config.ts         # API modules configuration
+```
+
+### API Functions
+
+- Create pure functions that only make HTTP calls and return data
+- Use `httpModule` from `../shared/http-module` for all API calls
+- Functions should NOT manage localStorage or any side effects
+- Functions should NOT use React hooks
+- Functions should be typed with TypeScript (no `any`)
+
+**Example Query:**
+
+```typescript
+import { httpModule } from "../shared/http-module";
+import type { User } from "../../types/identity-service";
+
+export const getUserData = async (): Promise<User> => {
+  return await httpModule.get<User>("identity", "/me");
+};
+```
+
+**Example Mutation:**
+
+```typescript
+import { httpModule } from "../shared/http-module";
+import type { LoginRequest, LoginResponse } from "../../types/identity-service";
+
+export const loginUser = async (data: LoginRequest): Promise<LoginResponse> => {
+  return await httpModule.post<LoginResponse>("identity", "/auth/login", data);
+};
+```
+
+### Using API in Components
+
+- Always use React Query (`useQuery` or `useMutation`) to call API functions
+- Do NOT call API functions directly in components
+- Define `onSuccess`, `onError`, `enabled`, etc. in the component where you use the hook
+
+**Example:**
+
+```typescript
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { getUserData } from "../api/queries";
+import { loginUser } from "../api/mutations";
+
+type MyComponentProps = {
+  userId: string;
+};
+
+export const MyComponent = ({ userId }: MyComponentProps) => {
+  const { data: user, isLoading } = useQuery({
+    queryKey: ["user", userId],
+    queryFn: getUserData,
+    enabled: !!userId,
+  });
+
+  const loginMutation = useMutation({
+    mutationFn: loginUser,
+    onSuccess: () => {
+      // Handle success
+    },
+  });
+
+  return <div>{/* component content */}</div>;
+};
+```
+
+## HttpModule Usage
+
+- Use `httpModule.get()`, `httpModule.post()`, `httpModule.put()`, `httpModule.patch()`, `httpModule.delete()`
+- First parameter is the module name (e.g., "identity", "recipes")
+- Second parameter is the endpoint URL (e.g., "/auth/login")
+- HttpModule automatically adds headers based on the module (identity gets x-client-id, x-client-secret, etc.)
+
+## Type Definitions
+
+- Place type definitions in `/src/types/` organized by service
+- Example: `/src/types/identity-service.ts` for Identity Service types
+- Do NOT use `any` type
+- Use explicit types for all function parameters and return values

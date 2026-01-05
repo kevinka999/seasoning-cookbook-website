@@ -18,13 +18,11 @@ class HttpModule {
   private getDefaultHeaders(module: ApiModule): Record<string, string> {
     const headers: Record<string, string> = {};
 
-    // Add Authorization header for all modules
     const token = localStorageUtils.get(ACCESS_TOKEN_KEY);
     if (token) {
       headers.Authorization = `Bearer ${token}`;
     }
 
-    // Add identity-specific headers
     if (module === "identity") {
       headers["x-client-id"] = CLIENT_ID;
       headers["x-client-secret"] = CLIENT_SECRET;

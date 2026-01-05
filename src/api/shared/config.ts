@@ -1,5 +1,3 @@
-// API modules configuration
-
 export const API_MODULES = {
   identity:
     import.meta.env.VITE_IDENTITY_SERVICE_URL || "http://localhost:3000",

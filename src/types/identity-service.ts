@@ -21,9 +21,9 @@ export interface RefreshResponse {
 }
 
 export interface User {
-  sub: string; // User ID
+  sub: string;
   email: string;
-  aud: string; // Application clientId
-  iat?: number; // Issued at
-  exp?: number; // Expiration
+  aud: string;
+  iat?: number;
+  exp?: number;
 }
