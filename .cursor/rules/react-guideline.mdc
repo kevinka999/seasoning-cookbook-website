@@ -133,3 +133,10 @@ export const MyComponent = ({ userId }: MyComponentProps) => {
 - Example: `/src/types/identity-service.ts` for Identity Service types
 - Do NOT use `any` type
 - Use explicit types for all function parameters and return values
+
+### Type Organization
+
+- **Entity/Response Types**: Place in `/src/types/` (e.g., `User`, `Recipe`, `Pokemon`, `LoginResponse`)
+- **Request/Parameter Types**: Define directly in the API file where they are used (e.g., `LoginRequest`, `SearchPokemonsParams`, `CreateRecipeRequest`)
+- Types in `/src/types/` should only contain data models and API response types
+- Request types and query parameters should be defined as `interface` in the same file as the API function

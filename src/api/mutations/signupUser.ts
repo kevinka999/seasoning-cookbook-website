@@ -1,8 +1,10 @@
 import { httpModule } from "../shared/http-module";
-import type {
-  SignupRequest,
-  SignupResponse,
-} from "../../types/identity-service";
+import type { SignupResponse } from "../../types/identity-service";
+
+export interface SignupRequest {
+  email: string;
+  password: string;
+}
 
 export const signupUser = async (
   data: SignupRequest

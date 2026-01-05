@@ -1,14 +1,11 @@
 import React, { createContext, useContext, useCallback } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { loginUser, signupUser, logoutUser } from "../api/mutations";
+import type { LoginRequest, SignupRequest } from "../api/mutations";
 import { getUserData } from "../api/queries";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useQueryClient } from "@tanstack/react-query";
-import type {
-  User,
-  LoginRequest,
-  SignupRequest,
-} from "../types/identity-service";
+import type { User } from "../types/identity-service";
 
 const ACCESS_TOKEN_KEY = "access_token";
 

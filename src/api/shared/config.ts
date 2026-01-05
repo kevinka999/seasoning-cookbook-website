@@ -1,7 +1,7 @@
 export const API_MODULES = {
   identity:
     import.meta.env.VITE_IDENTITY_SERVICE_URL || "http://localhost:3000",
-  recipes:
+  seasoningCookbook:
     import.meta.env.VITE_SEASONING_COOKBOOK_SERVICE_URL ||
     "http://localhost:3001",
 } as const;
