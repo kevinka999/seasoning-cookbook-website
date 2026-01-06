@@ -1,31 +1,10 @@
 import { useState } from "react";
-import pokemonRegistry from "../../../data/pokemon-registry.json";
-import type { PokemonRegistryItem } from "../../types/pokemon-registry";
+import type { Pokemon } from "../../types/seasoning-cookbook-service";
 import { CommandPalette } from "../CommandPalette";
 import { InventoryItem } from "../InventoryItem";
 
-const normalizeText = (text: string): string => {
-  return text
-    .toLowerCase()
-    .normalize("NFD")
-    .replace(/[\u0300-\u036f]/g, "");
-};
-
-const getFilteredPokemons = (
-  searchQuery: string,
-  pokemonData: PokemonRegistryItem[],
-) => {
-  if (!searchQuery.trim()) return pokemonData;
-
-  const normalizedSearchTerm = normalizeText(searchQuery);
-  return pokemonData.filter((pokemon) => {
-    const normalizedName = normalizeText(pokemon.name);
-    return normalizedName.includes(normalizedSearchTerm);
-  });
-};
-
 const renderPokemonItem = (
-  pokemon: PokemonRegistryItem,
+  pokemon: Pokemon,
   _isSelected: boolean, // eslint-disable-line @typescript-eslint/no-unused-vars
 ) => {
   return (
@@ -51,32 +30,34 @@ const renderPokemonItem = (
   );
 };
 
-const getPokemonKey = (pokemon: PokemonRegistryItem) => {
-  return pokemon.id;
+const getPokemonKey = (pokemon: Pokemon) => {
+  return pokemon._id;
 };
-
-const MAX_DISPLAYED_POKEMONS = 15;
 
 type PokemonCommandPaletteProps = {
   isOpen: boolean;
   onClose: () => void;
   onSelect: (pokemonId: string) => void;
+  pokemons: Pokemon[];
+  onSearchChange: (query: string) => void;
 };
 
 export const PokemonCommandPalette = ({
   isOpen,
   onClose,
   onSelect,
+  pokemons,
+  onSearchChange,
 }: PokemonCommandPaletteProps) => {
   const [searchQuery, setSearchQuery] = useState("");
-  const pokemonData = pokemonRegistry as PokemonRegistryItem[];
 
   const handleSearch = (query: string) => {
     setSearchQuery(query);
+    onSearchChange(query);
   };
 
-  const handleSelect = (pokemon: PokemonRegistryItem) => {
-    onSelect(pokemon.id);
+  const handleSelect = (pokemon: Pokemon) => {
+    onSelect(pokemon._id);
     setSearchQuery("");
   };
 
@@ -85,17 +66,11 @@ export const PokemonCommandPalette = ({
     setSearchQuery("");
   };
 
-  const filteredPokemonsResult = getFilteredPokemons(searchQuery, pokemonData);
-  const displayedPokemons = filteredPokemonsResult.slice(
-    0,
-    MAX_DISPLAYED_POKEMONS,
-  );
-
   return (
     <CommandPalette
       isOpen={isOpen}
       onClose={handleClose}
-      items={displayedPokemons}
+      items={pokemons}
       onSearch={handleSearch}
       onSelect={handleSelect}
       renderItem={renderPokemonItem}

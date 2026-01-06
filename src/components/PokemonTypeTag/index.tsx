@@ -1,5 +1,5 @@
 import { twMerge } from "tailwind-merge";
-import type { PokemonType } from "../../types/pokemon-registry";
+import type { PokemonType } from "../../types/seasoning-cookbook-service";
 import { capitalizeWords } from "../../utils";
 
 type TypeTheme = {

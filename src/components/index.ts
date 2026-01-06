@@ -9,7 +9,6 @@ export * from "./InventoryItem";
 export * from "./ItemFrame";
 export * from "./PokemonCommandPalette";
 export * from "./PokemonDisplayCard";
-export * from "./PokemonSearch";
 export * from "./PokemonTypeTag";
 export * from "./Popover";
 export * from "./ShulkerBox";

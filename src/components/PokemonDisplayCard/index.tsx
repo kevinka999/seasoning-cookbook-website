@@ -1,4 +1,4 @@
-import type { PokemonRegistryItem } from "../../types/pokemon-registry";
+import type { Pokemon } from "../../types/seasoning-cookbook-service";
 import { capitalizeWords } from "../../utils";
 import { Card } from "../Card";
 import { ItemFrame } from "../ItemFrame";
@@ -6,11 +6,11 @@ import { PokemonTypeTag } from "../PokemonTypeTag";
 import { Tag } from "../Tag";
 
 type PokemonDisplayCardProps = {
-  pokemon: PokemonRegistryItem;
+  pokemon: Pokemon;
   onPokemonClick?: () => void;
 };
 
-const PokemonTitle = ({ pokemon }: { pokemon: PokemonRegistryItem }) => {
+const PokemonTitle = ({ pokemon }: { pokemon: Pokemon }) => {
   return (
     <div className="flex flex-row items-center gap-1">
       <img src="/icons/pokeball.png" alt="Pokeball" className="h-8 w-8" />
