@@ -30,17 +30,13 @@ export const CreateRecipe = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const debouncedSearchQuery = useDebounceValue({
     inputValue: searchQuery,
+    delayInMillis: 700,
   });
 
-  const queryValue =
-    debouncedSearchQuery === "" && searchQuery !== ""
-      ? searchQuery
-      : debouncedSearchQuery;
-
   const { data: pokemons = [], isLoading } = useQuery({
-    queryKey: ["pokemons", "search", queryValue],
-    queryFn: () => searchPokemons({ name: queryValue }),
-    enabled: queryValue.length > 0 && isPaletteOpen,
+    queryKey: ["pokemons", "search", debouncedSearchQuery],
+    queryFn: () => searchPokemons({ name: debouncedSearchQuery }),
+    enabled: debouncedSearchQuery.length > 0 && isPaletteOpen,
   });
 
   const formik = useFormik<FormValues>({
@@ -100,6 +96,7 @@ export const CreateRecipe = () => {
 
       <PokemonCommandPalette
         isOpen={isPaletteOpen}
+        value={debouncedSearchQuery}
         onClose={() => setIsPaletteOpen(false)}
         onSelect={handleSelect}
         pokemons={pokemons}

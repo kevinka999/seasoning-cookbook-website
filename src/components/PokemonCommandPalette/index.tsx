@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { Pokemon } from "../../types/seasoning-cookbook-service";
 import { CommandPalette } from "../CommandPalette";
 import { InventoryItem } from "../InventoryItem";
@@ -38,6 +37,7 @@ type PokemonCommandPaletteProps = {
   isOpen: boolean;
   onClose: () => void;
   onSelect: (pokemonId: string) => void;
+  value: string;
   pokemons: Pokemon[];
   onSearchChange: (query: string) => void;
   isLoading?: boolean;
@@ -47,38 +47,34 @@ export const PokemonCommandPalette = ({
   isOpen,
   onClose,
   onSelect,
+  value,
   pokemons,
   onSearchChange,
   isLoading = false,
 }: PokemonCommandPaletteProps) => {
-  const [searchQuery, setSearchQuery] = useState("");
-
   const handleSearch = (query: string) => {
-    setSearchQuery(query);
     onSearchChange(query);
   };
 
   const handleSelect = (pokemon: Pokemon) => {
     onSelect(pokemon._id);
-    setSearchQuery("");
   };
 
   const handleClose = () => {
     onClose();
-    setSearchQuery("");
   };
 
   return (
     <CommandPalette
       isOpen={isOpen}
       onClose={handleClose}
+      value={value}
       items={pokemons}
       onSearch={handleSearch}
       onSelect={handleSelect}
       renderItem={renderPokemonItem}
       getItemKey={getPokemonKey}
       placeholder="Search Pokemon..."
-      searchQuery={searchQuery}
       isLoading={isLoading}
     />
   );

@@ -9,35 +9,33 @@ import { LoadingDots } from "../LoadingDots";
 type CommandPaletteProps<T> = {
   isOpen: boolean;
   onClose: () => void;
+  value: string;
   items: T[];
   onSearch: (query: string) => void;
   onSelect: (item: T) => void;
   renderItem: (item: T, isSelected: boolean) => React.ReactNode;
   getItemKey: (item: T) => string;
   placeholder?: string;
-  searchQuery?: string;
   isLoading?: boolean;
 };
 
 export const CommandPalette = <T,>({
   isOpen,
   onClose,
+  value,
   items,
   onSearch,
   onSelect,
   renderItem,
   getItemKey,
   placeholder = "Search...",
-  searchQuery: externalSearchQuery,
   isLoading = false,
 }: CommandPaletteProps<T>) => {
-  const [internalSearchQuery, setInternalSearchQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
 
   const inputRef = useRef<HTMLInputElement>(null);
   const resultsRef = useRef<HTMLDivElement>(null);
 
-  const searchQuery = externalSearchQuery ?? internalSearchQuery;
   const filteredItems = items;
 
   useEffect(() => {
@@ -96,9 +94,6 @@ export const CommandPalette = <T,>({
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    if (externalSearchQuery === undefined) {
-      setInternalSearchQuery(value);
-    }
     onSearch(value);
     setSelectedIndex(0);
   };
@@ -123,7 +118,6 @@ export const CommandPalette = <T,>({
               ref={inputRef}
               type="text"
               placeholder={placeholder}
-              value={searchQuery}
               onChange={handleSearchChange}
               onKeyDown={handleKeyDown}
               className="w-full py-3 pr-10 text-lg"
@@ -169,7 +163,7 @@ export const CommandPalette = <T,>({
             </div>
           )}
 
-          {!isLoading && filteredItems.length === 0 && searchQuery && (
+          {!isLoading && filteredItems.length === 0 && !!value && (
             <div className="p-4 text-center text-[#3f3f3f]">
               No results found
             </div>
