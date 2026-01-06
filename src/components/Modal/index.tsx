@@ -33,7 +33,7 @@ export const Modal = ({
         <Card title={title} className={twMerge("relative", className)}>
           <button
             onClick={onClose}
-            className="absolute -top-3 -right-3 flex h-8 w-8 items-center justify-center rounded-full border-2 border-black bg-[#6f6f6f] text-white shadow-[inset_0_2px_0_0_#aaaaaa,inset_2px_0_0_0_#aaaaaa,inset_-2px_0_0_0_#565656,inset_0_-4px_0_0_#565656] transition-colors hover:border-white"
+            className="absolute top-2 right-2 flex h-8 w-8 items-center justify-center border-2 border-black bg-[#6f6f6f] text-white shadow-[inset_0_2px_0_0_#aaaaaa,inset_2px_0_0_0_#aaaaaa,inset_-2px_0_0_0_#565656,inset_0_-2px_0_0_#565656] transition-colors hover:border-white"
             style={{ zIndex: Z_INDEX.modalCloseButton }}
             aria-label="Close modal"
           >
