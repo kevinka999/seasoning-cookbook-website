@@ -7,6 +7,7 @@ export * from "./Input";
 export * from "./Inventory";
 export * from "./InventoryItem";
 export * from "./ItemFrame";
+export * from "./LoadingDots";
 export * from "./PokemonCommandPalette";
 export * from "./PokemonDisplayCard";
 export * from "./PokemonTypeTag";

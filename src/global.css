@@ -35,3 +35,13 @@ img {
 .minecraft-text-shadow {
   text-shadow: 2px 2px 0 #3e3e3e;
 }
+
+@keyframes pulse-scale-dynamic {
+  0%,
+  100% {
+    transform: scale(var(--scale-start, 1));
+  }
+  50% {
+    transform: scale(var(--scale-end, 1.1));
+  }
+}

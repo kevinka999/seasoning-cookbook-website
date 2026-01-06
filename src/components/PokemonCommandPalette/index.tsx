@@ -40,6 +40,7 @@ type PokemonCommandPaletteProps = {
   onSelect: (pokemonId: string) => void;
   pokemons: Pokemon[];
   onSearchChange: (query: string) => void;
+  isLoading?: boolean;
 };
 
 export const PokemonCommandPalette = ({
@@ -48,6 +49,7 @@ export const PokemonCommandPalette = ({
   onSelect,
   pokemons,
   onSearchChange,
+  isLoading = false,
 }: PokemonCommandPaletteProps) => {
   const [searchQuery, setSearchQuery] = useState("");
 
@@ -77,6 +79,7 @@ export const PokemonCommandPalette = ({
       getItemKey={getPokemonKey}
       placeholder="Search Pokemon..."
       searchQuery={searchQuery}
+      isLoading={isLoading}
     />
   );
 };

@@ -3,6 +3,7 @@ import { FaSearch } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
 import { Card } from "../Card";
 import { Input } from "../Input";
+import { LoadingDots } from "../LoadingDots";
 
 type CommandPaletteProps<T> = {
   isOpen: boolean;
@@ -14,6 +15,7 @@ type CommandPaletteProps<T> = {
   getItemKey: (item: T) => string;
   placeholder?: string;
   searchQuery?: string;
+  isLoading?: boolean;
 };
 
 export const CommandPalette = <T,>({
@@ -26,6 +28,7 @@ export const CommandPalette = <T,>({
   getItemKey,
   placeholder = "Search...",
   searchQuery: externalSearchQuery,
+  isLoading = false,
 }: CommandPaletteProps<T>) => {
   const [internalSearchQuery, setInternalSearchQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
@@ -135,8 +138,8 @@ export const CommandPalette = <T,>({
               {filteredItems.map((item, index) => {
                 const isSelected = selectedIndex === index;
                 const hoverEffect =
-                  "hover:bg-[#8b8b8b] hover:ml-6 transition-all duration-100";
-                const selectedEffect = isSelected ? "ml-6 bg-[#8b8b8b]" : "";
+                  "hover:bg-[#8b8b8b] transition-all duration-100";
+                const selectedEffect = isSelected ? "bg-[#8b8b8b]" : "";
 
                 const classes = twMerge(
                   "cursor-pointer px-3 py-2",
@@ -158,7 +161,13 @@ export const CommandPalette = <T,>({
             </div>
           )}
 
-          {filteredItems.length === 0 && searchQuery && (
+          {isLoading && (
+            <div className="p-4 text-center text-[#3f3f3f]">
+              <LoadingDots />
+            </div>
+          )}
+
+          {!isLoading && filteredItems.length === 0 && searchQuery && (
             <div className="p-4 text-center text-[#3f3f3f]">
               No results found
             </div>
