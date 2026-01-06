@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { twMerge } from "tailwind-merge";
+import { Z_INDEX } from "../../constants/z-index";
 import { Card } from "../Card";
 import { Input } from "../Input";
 import { LoadingDots } from "../LoadingDots";
@@ -111,7 +112,8 @@ export const CommandPalette = <T,>({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/50"
+      className="fixed inset-0 flex items-center justify-center bg-black/50"
+      style={{ zIndex: Z_INDEX.commandPalette }}
       onClick={onClose}
     >
       <div className="w-full max-w-2xl" onClick={(e) => e.stopPropagation()}>

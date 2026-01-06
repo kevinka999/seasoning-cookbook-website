@@ -1,6 +1,7 @@
 import * as PopoverPrimitive from "@radix-ui/react-popover";
 import React, { type ReactNode, useState } from "react";
 import { twMerge } from "tailwind-merge";
+import { Z_INDEX } from "../../constants/z-index";
 
 type PopoverProps = {
   className?: string;
@@ -38,7 +39,8 @@ export const Popover = ({
   );
 
   const titleStyles = "text-[#fcfcfc] minecraft-text-shadow text-md";
-  const descriptionStyles = "text-[#a8a8a8] minecraft-text-shadow text-md whitespace-pre-line";
+  const descriptionStyles =
+    "text-[#a8a8a8] minecraft-text-shadow text-md whitespace-pre-line";
 
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>
@@ -51,7 +53,7 @@ export const Popover = ({
       </PopoverPrimitive.Trigger>
       <PopoverPrimitive.Portal>
         <PopoverPrimitive.Content
-          style={{ zIndex: 100 }}
+          style={{ zIndex: Z_INDEX.popover }}
           className={popoverStyles}
           side={side}
           align={align}
