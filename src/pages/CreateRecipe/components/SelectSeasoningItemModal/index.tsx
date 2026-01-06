@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Modal, Inventory } from "../../../../components";
 import { getSeasoningItems } from "../../../../api/queries/getSeasoningItems";
 import { INVENTORY_COLS } from "../../../../constants/inventory";
+import { parseSeasoningEffects } from "../../../../utils/seasoning-parser";
 import type { SeasoningItem } from "../../../../types/seasoning-cookbook-service";
 import type { InventoryItemData } from "../../../../components/InventoryItem";
 
@@ -31,9 +32,7 @@ export const SelectSeasoningItemModal = ({
         ? `/images/seasoning/${item.image}`
         : "/images/missingno.webp",
       name: item.itemName,
-      description: item.effects
-        .map((effect) => `${effect.type}: ${effect.value || ""}`)
-        .join("\n"),
+      description: parseSeasoningEffects(item.effects),
       onClick: () => {
         onSelect(item);
         onClose();

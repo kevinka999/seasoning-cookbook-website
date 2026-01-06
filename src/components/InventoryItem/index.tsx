@@ -3,7 +3,7 @@ import { twMerge } from "tailwind-merge";
 import { Popover } from "../Popover";
 
 export type InventoryItemData = {
-  path: string;
+  path?: string;
   name: string;
   description?: string;
   onClick?: () => void;

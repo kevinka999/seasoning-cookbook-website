@@ -131,3 +131,19 @@ export interface SeasoningItem {
   effects: ItemEffect[];
   image?: string;
 }
+
+export type CombinedEffect = {
+  type: EffectType;
+  category?: EffectCategory;
+  totalValue: number;
+};
+
+export type FormattedEffectPart =
+  | string
+  | {
+      type: "category" | "value" | "effectType";
+      content: string;
+      rawValue?: number;
+      effectType?: EffectType;
+      category?: EffectCategory;
+    };

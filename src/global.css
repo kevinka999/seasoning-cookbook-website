@@ -36,35 +36,33 @@ img {
   text-shadow: 2px 2px 0 #3e3e3e;
 }
 
-@layer components {
-  .container {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    max-width: 72rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
+.page-container {
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 64rem;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
 
-  @media (min-width: 768px) {
-    .container {
-      padding-left: 3rem;
-      padding-right: 3rem;
-    }
+@media (min-width: 768px) {
+  .page-container {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
+}
 
-  @media (min-width: 1024px) {
-    .container {
-      padding-left: 5rem;
-      padding-right: 5rem;
-    }
+@media (min-width: 1024px) {
+  .page-container {
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
   }
+}
 
-  @media (min-width: 1280px) {
-    .container {
-      padding-left: 8rem;
-      padding-right: 8rem;
-    }
+@media (min-width: 1280px) {
+  .page-container {
+    padding-left: 3rem;
+    padding-right: 3rem;
   }
 }
 

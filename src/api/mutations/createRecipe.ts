@@ -1,9 +1,13 @@
 import { httpModule } from "../shared/http-module";
-import type { Recipe } from "../../types/seasoning-cookbook-service";
+import type {
+  Recipe,
+  RecipeCategory,
+} from "../../types/seasoning-cookbook-service";
 
 interface CreateRecipeRequest {
   pokemonId: string;
   seasoningItemIds: string[];
+  category: RecipeCategory[];
   description?: string | null;
 }
 
