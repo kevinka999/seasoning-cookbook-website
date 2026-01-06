@@ -1,10 +1,28 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { useFormik } from "formik";
+import * as yup from "yup";
 import { Card, ItemFrame, PokemonCommandPalette } from "../../components";
 import { searchPokemons } from "../../api/queries/searchPokemons";
 import { useDebounceValue } from "../../hooks/useDebounceValue";
 import { SelectSeasoningItemModal } from "./components/SelectSeasoningItemModal";
 import type { SeasoningItem } from "../../types/seasoning-cookbook-service";
+
+const validationSchema = yup.object({
+  pokemonId: yup.string().required("Pokemon is required"),
+  seasoningItemIds: yup
+    .array()
+    .of(yup.string())
+    .min(1, "At least one seasoning item is required")
+    .required("Seasoning items are required"),
+  description: yup.string().nullable(),
+});
+
+type FormValues = {
+  pokemonId: string;
+  seasoningItemIds: string[];
+  description: string | null;
+};
 
 export const CreateRecipe = () => {
   const [isPaletteOpen, setIsPaletteOpen] = useState(false);
@@ -25,16 +43,31 @@ export const CreateRecipe = () => {
     enabled: queryValue.length > 0 && isPaletteOpen,
   });
 
+  const formik = useFormik<FormValues>({
+    initialValues: {
+      pokemonId: "",
+      seasoningItemIds: [],
+      description: null,
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      console.log("Form submitted:", values);
+    },
+  });
+
   const handleSearchChange = (query: string) => {
     setSearchQuery(query);
   };
 
   const handleSelect = (pokemonId: string) => {
-    console.log("Selected pokemon:", pokemonId);
+    formik.setFieldValue("pokemonId", pokemonId);
   };
 
   const handleSeasoningSelect = (item: SeasoningItem) => {
-    console.log("Selected seasoning item:", item);
+    const currentIds = formik.values.seasoningItemIds;
+    if (!currentIds.includes(item._id)) {
+      formik.setFieldValue("seasoningItemIds", [...currentIds, item._id]);
+    }
   };
 
   return (
