@@ -1,17 +1,15 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { PageLayout } from "./components/PageLayout";
-import { Home } from "./pages/Home";
-import { CreateRecipe } from "./pages/CreateRecipe";
+import { BrowserRouter, useRoutes } from "react-router-dom";
+import { createRouteObjects } from "./routes";
+
+const AppRoutes = () => {
+  const routes = useRoutes(createRouteObjects());
+  return routes;
+};
 
 export const App = () => {
   return (
     <BrowserRouter>
-      <Routes>
-        <Route element={<PageLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/create" element={<CreateRecipe />} />
-        </Route>
-      </Routes>
+      <AppRoutes />
     </BrowserRouter>
   );
 };

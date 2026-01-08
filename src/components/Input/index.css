@@ -10,3 +10,15 @@
 .minecraft-input::placeholder {
   text-shadow: none;
 }
+
+.minecraft-input:-webkit-autofill,
+.minecraft-input:-webkit-autofill:hover,
+.minecraft-input:-webkit-autofill:focus,
+.minecraft-input:-webkit-autofill:active {
+  background-color: #8b8b8b !important;
+  text-shadow: none !important;
+  -webkit-text-fill-color: white !important;
+  text-shadow: 2px 2px 0 #3e3e3e !important;
+  caret-color: white !important;
+  transition: background-color 5000s ease-in-out 0s;
+}

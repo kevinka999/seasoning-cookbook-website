@@ -2,7 +2,7 @@ import React, { createContext, useContext, useCallback } from "react";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { loginUser, signupUser, logoutUser } from "../api/mutations";
 import type { LoginRequest, SignupRequest } from "../api/mutations";
-import { getUserData } from "../api/queries";
+import { getUserData, getUserNickname } from "../api/queries";
 import { useLocalStorage } from "../hooks/useLocalStorage";
 import { useQueryClient } from "@tanstack/react-query";
 import type { User } from "../types/identity-service";
@@ -12,6 +12,7 @@ const ACCESS_TOKEN_KEY = "access_token";
 interface AuthContextType {
   isAuthenticated: boolean;
   user: User | null;
+  hasCompletedSetup: boolean;
   login: (email: string, password: string) => Promise<void>;
   signup: (email: string, password: string) => Promise<void>;
   signout: () => Promise<void>;
@@ -27,7 +28,7 @@ interface AuthProviderProps {
 export const AuthProvider = ({ children }: AuthProviderProps) => {
   const [storedToken, setStoredToken] = useLocalStorage<string | null>(
     ACCESS_TOKEN_KEY,
-    null
+    null,
   );
   const queryClient = useQueryClient();
 
@@ -35,6 +36,17 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
     queryKey: ["auth", "me"],
     queryFn: getUserData,
     enabled: !!storedToken,
+    retry: false,
+  });
+
+  const {
+    data: nicknameData,
+    isError: isNicknameError,
+    isLoading: isLoadingNickname,
+  } = useQuery({
+    queryKey: ["seasoningCookbook", "user", "nickname"],
+    queryFn: getUserNickname,
+    enabled: !!storedToken && !!user,
     retry: false,
   });
 
@@ -61,6 +73,10 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
 
   const isAuthenticated = !!storedToken && !!user;
 
+  const hasCompletedSetup = isAuthenticated
+    ? !isNicknameError && !!nicknameData
+    : false;
+
   const login = useCallback(
     async (email: string, password: string): Promise<void> => {
       const data: LoginRequest = { email, password };
@@ -69,7 +85,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setStoredToken(response.accessToken);
       await queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
     },
-    [loginMutation, setStoredToken, queryClient]
+    [loginMutation, setStoredToken, queryClient],
   );
 
   const signup = useCallback(
@@ -80,7 +96,7 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
       setStoredToken(response.accessToken);
       await queryClient.invalidateQueries({ queryKey: ["auth", "me"] });
     },
-    [signupMutation, setStoredToken, queryClient]
+    [signupMutation, setStoredToken, queryClient],
   );
 
   const signout = useCallback(async (): Promise<void> => {
@@ -97,11 +113,13 @@ export const AuthProvider = ({ children }: AuthProviderProps) => {
   const value: AuthContextType = {
     isAuthenticated,
     user: user || null,
+    hasCompletedSetup: hasCompletedSetup,
     login,
     signup,
     signout,
     isLoading:
       isLoadingUser ||
+      (!!storedToken && !!user && isLoadingNickname) ||
       loginMutation.isPending ||
       signupMutation.isPending ||
       logoutMutation.isPending,

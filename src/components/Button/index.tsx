@@ -17,10 +17,10 @@ const colorVariant: Record<ColorVariant, string> = {
 
 const innerBorderVariant: Record<ColorVariant, string> = {
   default:
-    "shadow-[inset_0_2px_0_0_#aaaaaa,inset_2px_0_0_0_#aaaaaa,inset_-2px_0_0_0_#565656,inset_0_-4px_0_0_#565656]",
-  blue: "shadow-[inset_0_2px_0_0_#7c88ff,inset_2px_0_0_0_#7c88ff,inset_-2px_0_0_0_#4752c4,inset_0_-4px_0_0_#4752c4]",
+    "shadow-[inset_0_2px_0_0_#aaaaaa,inset_2px_0_0_0_#aaaaaa,inset_-2px_0_0_0_#565656,inset_0_-2px_0_0_#565656]",
+  blue: "shadow-[inset_0_2px_0_0_#7c88ff,inset_2px_0_0_0_#7c88ff,inset_-2px_0_0_0_#4752c4,inset_0_-2px_0_0_#4752c4]",
   green:
-    "shadow-[inset_0_2px_0_0_#38e87d,inset_2px_0_0_0_#38e87d,inset_-2px_0_0_0_#207a36,inset_0_-4px_0_0_#207a36]",
+    "shadow-[inset_0_2px_0_0_#38e87d,inset_2px_0_0_0_#38e87d,inset_-2px_0_0_0_#207a36,inset_0_-2px_0_0_#207a36]",
 };
 
 type ButtonProps = React.ComponentPropsWithoutRef<"button"> & {

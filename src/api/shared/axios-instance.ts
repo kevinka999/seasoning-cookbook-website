@@ -14,7 +14,7 @@ let failedQueue: Array<{
 
 const processQueue = (
   error: AxiosError | null,
-  token: string | null = null
+  token: string | null = null,
 ): void => {
   failedQueue.forEach((prom) => {
     if (error) {
@@ -44,7 +44,7 @@ const refreshToken = async (): Promise<string | null> => {
           Authorization: `Bearer ${localStorageUtils.get(ACCESS_TOKEN_KEY)}`,
         },
         withCredentials: true,
-      }
+      },
     );
 
     const newToken = response.data.accessToken;
@@ -73,7 +73,7 @@ axiosInstance.interceptors.request.use(
   },
   (error) => {
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInstance.interceptors.response.use(
@@ -89,10 +89,15 @@ axiosInstance.interceptors.response.use(
     const requestUrl = originalRequest.url || "";
     const isIdentityServiceEndpoint = requestUrl.startsWith(identityServiceUrl);
 
+    const authEndpoints = ["/auth/login", "/auth/signup", "/auth/refresh"];
+    const shouldSkipRefresh =
+      isIdentityServiceEndpoint &&
+      authEndpoints.some((endpoint) => requestUrl.includes(endpoint));
+
     if (
       error.response?.status === 401 &&
       !originalRequest._retry &&
-      !isIdentityServiceEndpoint
+      !shouldSkipRefresh
     ) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
@@ -135,5 +140,5 @@ axiosInstance.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
