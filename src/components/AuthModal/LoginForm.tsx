@@ -72,7 +72,7 @@ export const LoginForm = ({ onSuccess, onSwitchToSignup }: LoginFormProps) => {
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 p-4">
       <div className="flex flex-col gap-2">
-        <label htmlFor="login-email" className="text-base text-black">
+        <label htmlFor="login-email" className="text-base text-primary">
           Email
         </label>
         <Input
@@ -92,7 +92,7 @@ export const LoginForm = ({ onSuccess, onSwitchToSignup }: LoginFormProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="login-password" className="text-base text-black">
+        <label htmlFor="login-password" className="text-base text-primary">
           Password
         </label>
         <Input
@@ -112,7 +112,7 @@ export const LoginForm = ({ onSuccess, onSwitchToSignup }: LoginFormProps) => {
       </div>
 
       <div className="flex items-center justify-end gap-2 text-sm">
-        <span className="text-black">Don't have an account?</span>
+        <span className="text-primary">Don't have an account?</span>
         <button
           type="button"
           onClick={onSwitchToSignup}

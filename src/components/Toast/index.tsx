@@ -39,7 +39,7 @@ type ToastProps = {
 
 export const Toast = ({ type, content, className }: ToastProps) => {
   const baseStyles =
-    "border-2 border-black rounded-none text-white minecraft-text-shadow px-3 py-2 min-w-[180px] text-sm flex items-center gap-2";
+    "border-2 border-black rounded-none text-white minecraft-text-shadow font-minecraft px-3 py-2 min-w-[180px] text-sm flex items-center gap-2";
   const colorStyles = colorVariant[type];
   const innerBorderStyles = innerBorderVariant[type];
 

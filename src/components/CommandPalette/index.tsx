@@ -158,13 +158,13 @@ export const CommandPalette = <T,>({
           )}
 
           {isLoading && (
-            <div className="p-4 text-center text-[#3f3f3f]">
+            <div className="text-secondary p-4 text-center">
               <LoadingDots />
             </div>
           )}
 
           {!isLoading && filteredItems.length === 0 && !!value && (
-            <div className="p-4 text-center text-[#3f3f3f]">
+            <div className="text-secondary p-4 text-center">
               No results found
             </div>
           )}

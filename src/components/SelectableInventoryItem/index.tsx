@@ -15,8 +15,9 @@ export const SelectableInventoryItem = ({
   className,
 }: SelectableInventoryItemProps) => {
   return (
-    <div className={`relative ${className || ""}`} onClick={onToggle}>
+    <div className="relative h-fit w-fit" onClick={onToggle}>
       <InventoryItem
+        className={className}
         data={{
           ...data,
           onClick: onToggle,
@@ -24,10 +25,9 @@ export const SelectableInventoryItem = ({
       />
       {isSelected && (
         <div className="pointer-events-none absolute inset-0 flex items-center justify-center bg-black/30">
-          <FaCheck className="h-6 w-6 text-white" />
+          <FaCheck className="h-1/2 w-1/2 text-white" />
         </div>
       )}
     </div>
   );
 };
-

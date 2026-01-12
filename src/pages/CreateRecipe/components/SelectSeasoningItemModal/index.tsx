@@ -10,12 +10,14 @@ type SelectSeasoningItemModalProps = {
   isOpen: boolean;
   onClose: () => void;
   onSelect: (item: SeasoningItem) => void;
+  selectedItemIds?: string[];
 };
 
 export const SelectSeasoningItemModal = ({
   isOpen,
   onClose,
   onSelect,
+  selectedItemIds,
 }: SelectSeasoningItemModalProps) => {
   const { data: seasoningItems = [], isLoading } = useQuery({
     queryKey: ["seasoningItems"],
@@ -59,7 +61,7 @@ export const SelectSeasoningItemModal = ({
       <div className="p-4">
         {isLoading ? (
           <div className="flex items-center justify-center p-8">
-            <span className="text-[#3f3f3f]">Loading...</span>
+            <span className="text-secondary">Loading...</span>
           </div>
         ) : (
           <div className="flex justify-center">
@@ -67,6 +69,7 @@ export const SelectSeasoningItemModal = ({
               rows={rows}
               cols={INVENTORY_COLS}
               items={inventoryItems}
+              selectedItemIds={selectedItemIds}
             />
           </div>
         )}

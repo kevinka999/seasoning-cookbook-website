@@ -38,9 +38,9 @@ export const Popover = ({
     className,
   );
 
-  const titleStyles = "text-[#fcfcfc] minecraft-text-shadow text-md";
+  const titleStyles = "text-[#fcfcfc] minecraft-text-shadow font-minecraft text-md";
   const descriptionStyles =
-    "text-[#a8a8a8] minecraft-text-shadow text-md whitespace-pre-line";
+    "text-[#a8a8a8] minecraft-text-shadow font-minecraft text-md whitespace-pre-line";
 
   return (
     <PopoverPrimitive.Root open={open} onOpenChange={setOpen}>

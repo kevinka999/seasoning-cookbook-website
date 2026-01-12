@@ -132,7 +132,7 @@ export const PokemonTypeTag = ({
 }: PokemonTypeTagProps) => {
   const colors = pokemonTypeColors[type];
   const baseStyles =
-    "inline-block border-2 border-black rounded-none text-white minecraft-text-shadow";
+    "inline-block border-2 border-black rounded-none text-white minecraft-text-shadow font-minecraft";
   const sizeStyles = "px-3 py-1 text-sm";
 
   const tagStyles = twMerge(baseStyles, sizeStyles, className);

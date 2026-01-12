@@ -30,7 +30,7 @@ export const Card = ({
   return (
     <div className={cardStyles} {...props}>
       {title && (
-        <div className="minecraft-text-shadow rounded-t-sm border-b-2 border-black bg-[#808080] px-4 py-2 text-2xl text-white shadow-[inset_0_2px_0_0_#ffffff,inset_2px_0_0_0_#ffffff,inset_-2px_0_0_0_#555555,inset_0_-2px_0_0_#555555]">
+        <div className="minecraft-text-shadow font-minecraft rounded-t-sm border-b-2 border-black bg-[#808080] px-4 py-2 text-2xl text-white shadow-[inset_0_2px_0_0_#ffffff,inset_2px_0_0_0_#ffffff,inset_-2px_0_0_0_#555555,inset_0_-2px_0_0_#555555]">
           {title}
         </div>
       )}

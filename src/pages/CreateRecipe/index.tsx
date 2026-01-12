@@ -7,14 +7,12 @@ import {
   Card,
   ItemFrame,
   PokemonCommandPalette,
-  PokemonDisplayCard,
   Textarea,
-  PokemonTypeTag,
-  Tag,
-  RecipePot,
   SelectableInventoryItem,
   Button,
   LoadingDots,
+  RecipeEffects,
+  PokemonInfo,
 } from "../../components";
 import { useToast } from "../../contexts/ToastContext";
 import { searchPokemons } from "../../api/queries/searchPokemons";
@@ -22,17 +20,10 @@ import { getSeasoningItems } from "../../api/queries/getSeasoningItems";
 import { useDebounceValue } from "../../hooks/useDebounceValue";
 import { SelectSeasoningItemModal } from "./components/SelectSeasoningItemModal";
 import { createRecipe } from "../../api/mutations/createRecipe";
-import {
-  combineRecipeEffects,
-  formatCombinedEffect,
-  parseSeasoningEffects,
-} from "../../utils/seasoning-parser";
-import { capitalizeWords, normalizeWord } from "../../utils";
-import { POKEMON_TYPES } from "../../constants/pokemon";
+import { parseSeasoningEffects } from "../../utils/seasoning-parser";
 import type {
   SeasoningItem,
   RecipeCategory,
-  PokemonType,
 } from "../../types/seasoning-cookbook-service";
 
 const validationSchema = yup.object({
@@ -60,56 +51,6 @@ type FormValues = {
   category: RecipeCategory[];
   seasoningItemIds: [string | null, string | null, string | null];
   description: string | null;
-};
-
-const formatCombinedEffects = (
-  effect: ReturnType<typeof combineRecipeEffects>[number],
-): React.ReactNode => {
-  const formattedEffects = formatCombinedEffect(effect);
-
-  return (
-    <span className="flex flex-row flex-wrap items-center gap-2">
-      {formattedEffects.map((part, partIndex) => {
-        if (typeof part === "string") {
-          return (
-            <span
-              key={partIndex}
-              className="text-base leading-relaxed text-[#3f3f3f]"
-            >
-              {part}
-            </span>
-          );
-        }
-
-        if (part.type === "category") {
-          const type = part.content.toLowerCase() as PokemonType;
-          if (POKEMON_TYPES.includes(type as PokemonType)) {
-            return (
-              <PokemonTypeTag key={partIndex} type={type} className="text-xs" />
-            );
-          }
-
-          return (
-            <Tag
-              key={partIndex}
-              text={normalizeWord(part.content)}
-              className="text-xs"
-            />
-          );
-        }
-
-        if (part.type === "value") {
-          return (
-            <Tag
-              key={partIndex}
-              text={capitalizeWords(part.content)}
-              className="p-1 text-xs"
-            />
-          );
-        }
-      })}
-    </span>
-  );
 };
 
 export const CreateRecipe = () => {
@@ -277,7 +218,7 @@ export const CreateRecipe = () => {
       {!hasSelectedPokemonBefore && !selectedPokemon && (
         <Card title="Select your pokemon to show recipes">
           <div className="px-4 pt-2 pb-1">
-            <p className="text-base leading-relaxed text-[#3f3f3f]">
+            <p className="text-secondary text-lg leading-relaxed">
               Click on the item frame to select the pokemon
             </p>
           </div>
@@ -295,15 +236,30 @@ export const CreateRecipe = () => {
       )}
 
       {selectedPokemon && (
-        <PokemonDisplayCard
-          pokemon={selectedPokemon}
-          onPokemonClick={() => setIsPaletteOpen(true)}
-        />
+        <Card
+          title={
+            <div className="flex flex-row items-center gap-1">
+              <img
+                src="/icons/pokeball.png"
+                alt="Pokeball"
+                className="h-8 w-8"
+              />
+              {selectedPokemon.name}
+            </div>
+          }
+        >
+          <div className="p-4">
+            <PokemonInfo
+              pokemon={selectedPokemon}
+              onPokemonClick={() => setIsPaletteOpen(true)}
+            />
+          </div>
+        </Card>
       )}
 
       <Card title="Category">
         <div className="px-4 pt-2 pb-1">
-          <p className="text-base leading-relaxed text-[#3f3f3f]">
+          <p className="text-secondary text-lg leading-relaxed">
             Select which type of recipe this is for
           </p>
         </div>
@@ -330,45 +286,25 @@ export const CreateRecipe = () => {
 
       <Card title="Seasoning Items">
         <div className="px-4 pt-2 pb-1">
-          <p className="text-base leading-relaxed text-[#3f3f3f]">
+          <p className="text-secondary text-lg leading-relaxed">
             Select up to 3 seasoning items to create your recipe
           </p>
         </div>
         <div className="flex flex-col">
-          <div className="flex flex-row items-start gap-8 p-4">
-            <RecipePot
+          <div className="p-4">
+            <RecipeEffects
               items={getRecipePotItems()}
+              seasoningItems={getSelectedSeasoningItems()}
               onItemClick={(slot) => setSeasoningModalSlot(slot)}
               emptyLabel="Choose seasoning"
             />
-
-            {getSelectedSeasoningItems().length > 0 && (
-              <div className="flex flex-1 flex-col items-start gap-3">
-                <div className="flex flex-row items-center gap-2">
-                  <span className="text-2xl text-black">Combined Effects</span>
-                </div>
-                <div className="flex flex-col gap-1 pl-2">
-                  {combineRecipeEffects(getSelectedSeasoningItems()).map(
-                    (effect, effectIndex) => (
-                      <div
-                        key={effectIndex}
-                        className="flex flex-row items-center gap-2"
-                      >
-                        <div className="h-1.5 w-1.5 shrink-0 bg-[#3f3f3f]" />
-                        {formatCombinedEffects(effect)}
-                      </div>
-                    ),
-                  )}
-                </div>
-              </div>
-            )}
           </div>
         </div>
       </Card>
 
       <Card title="Description">
         <div className="px-4 pt-2 pb-1">
-          <p className="text-base leading-relaxed text-[#3f3f3f]">
+          <p className="text-secondary text-lg leading-relaxed">
             Add an optional description for your recipe
           </p>
         </div>

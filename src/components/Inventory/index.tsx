@@ -1,4 +1,5 @@
 import { InventoryItem, type InventoryItemData } from "../InventoryItem";
+import { SelectableInventoryItem } from "../SelectableInventoryItem";
 
 type InventoryItemPosition = {
   id: string;
@@ -13,6 +14,7 @@ type InventoryProps = {
   items: InventoryItemPosition[];
   lazyLoad?: boolean;
   scale?: number;
+  selectedItemIds?: string[];
 };
 
 export const Inventory = ({
@@ -21,6 +23,7 @@ export const Inventory = ({
   items,
   lazyLoad = false,
   scale,
+  selectedItemIds,
 }: InventoryProps) => {
   const gridStyles = "grid gap-0";
   const gridWidth = cols * 48;
@@ -37,10 +40,34 @@ export const Inventory = ({
 
     const key = item?.id ?? `empty-${row}-${col}`;
 
+    if (!item?.data) {
+      return (
+        <InventoryItem
+          key={key}
+          data={undefined}
+          lazyLoad={lazyLoad}
+          scale={scale}
+        />
+      );
+    }
+
+    const isSelected = selectedItemIds?.includes(item.id) ?? false;
+
+    if (selectedItemIds !== undefined) {
+      return (
+        <SelectableInventoryItem
+          key={key}
+          data={item.data}
+          isSelected={isSelected}
+          onToggle={item.data.onClick ?? (() => {})}
+        />
+      );
+    }
+
     return (
       <InventoryItem
         key={key}
-        data={item?.data}
+        data={item.data}
         lazyLoad={lazyLoad}
         scale={scale}
       />

@@ -37,7 +37,7 @@ export const Button = ({
   ...props
 }: ButtonProps) => {
   const baseStyles =
-    "border-2 border-black rounded-none text-white minecraft-text-shadow";
+    "border-2 border-black rounded-none text-white minecraft-text-shadow font-minecraft";
   const colorStyles = colorVariant[variant];
   const innerBorderStyles = innerBorderVariant[variant];
   const sizeStyles = sizeVariant[size];

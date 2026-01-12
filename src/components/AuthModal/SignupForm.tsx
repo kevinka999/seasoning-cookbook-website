@@ -115,7 +115,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin }: SignupFormProps) => {
   return (
     <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4 p-4">
       <div className="flex flex-col gap-2">
-        <label htmlFor="signup-email" className="text-base text-black">
+        <label htmlFor="signup-email" className="text-base text-primary">
           Email
         </label>
         <Input
@@ -135,7 +135,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin }: SignupFormProps) => {
       </div>
 
       <div className="flex flex-col gap-2">
-        <label htmlFor="signup-password" className="text-base text-black">
+        <label htmlFor="signup-password" className="text-base text-primary">
           Password
         </label>
         <Input
@@ -152,12 +152,12 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin }: SignupFormProps) => {
         {formik.values.password && (
           <div className="flex flex-col gap-1">
             <div className="flex items-center justify-between text-xs">
-              <span className="text-black">
-                Password strength ({metCount}/{TOTAL_REQUIREMENTS})
+                <span className="text-primary">
+                  Password strength ({metCount}/{TOTAL_REQUIREMENTS})
               </span>
               {!isPasswordValid && (
-                <span className="text-black">
-                  Need at least {MIN_REQUIREMENTS} requirements
+                  <span className="text-primary">
+                    Need at least {MIN_REQUIREMENTS} requirements
                 </span>
               )}
             </div>
@@ -177,7 +177,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin }: SignupFormProps) => {
       <div className="flex flex-col gap-2">
         <label
           htmlFor="signup-confirm-password"
-          className="text-base text-black"
+          className="text-base text-primary"
         >
           Confirm Password
         </label>
@@ -200,7 +200,7 @@ export const SignupForm = ({ onSuccess, onSwitchToLogin }: SignupFormProps) => {
       </div>
 
       <div className="flex items-center justify-end gap-2 text-sm">
-        <span className="text-black">Already have an account?</span>
+        <span className="text-primary">Already have an account?</span>
         <button
           type="button"
           onClick={onSwitchToLogin}

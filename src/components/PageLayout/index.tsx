@@ -34,24 +34,24 @@ export const PageLayout = () => {
             <div className="flex items-center gap-2">
               {isAuthenticated ? (
                 <>
-                  <span className="minecraft-text-shadow text-sm text-white">
+                  <span className="minecraft-text-shadow font-minecraft text-sm text-white">
                     Welcome, {user?.email || "User"}
                   </span>
                   <button
                     onClick={signout}
-                    className="minecraft-text-shadow cursor-pointer text-sm text-white underline hover:text-gray-300"
+                    className="minecraft-text-shadow font-minecraft cursor-pointer text-sm text-white underline hover:text-gray-300"
                   >
                     Logout
                   </button>
                 </>
               ) : (
                 <>
-                  <span className="minecraft-text-shadow text-sm text-white">
+                  <span className="minecraft-text-shadow font-minecraft text-sm text-white">
                     You are not logged in
                   </span>
                   <button
                     onClick={handleOpenAuthModal}
-                    className="minecraft-text-shadow cursor-pointer text-sm text-white underline hover:text-gray-300"
+                    className="minecraft-text-shadow font-minecraft cursor-pointer text-sm text-white underline hover:text-gray-300"
                   >
                     Login
                   </button>

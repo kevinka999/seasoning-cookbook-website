@@ -1,0 +1,37 @@
+.minecraft-select {
+  /* Styling for the select element itself is handled by Tailwind classes */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='white' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 12px;
+  padding-right: 36px;
+}
+
+.minecraft-select::-ms-expand {
+  display: none;
+}
+
+.minecraft-select option {
+  background-color: #8b8b8b;
+  color: white;
+  padding: 8px 12px;
+  font-family: "Minecraft", monospace;
+  text-shadow: 2px 2px 0 #3e3e3e;
+}
+
+.minecraft-select option:checked {
+  background-color: #6f6f6f;
+  color: white;
+}
+
+.minecraft-select option:hover {
+  background-color: #6f6f6f;
+}
+
+.minecraft-select option:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}

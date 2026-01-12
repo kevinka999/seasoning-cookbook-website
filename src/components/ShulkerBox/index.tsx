@@ -25,7 +25,7 @@ export const ShulkerBox = ({
   cols,
   items,
 }: ShulkerBoxProps) => {
-  const titleStyles = "text-xl text-[#3f3f3f] py-2";
+  const titleStyles = "text-xl text-primary py-2";
   const paddingStyles = "px-4 pb-4 pt-0";
 
   return (

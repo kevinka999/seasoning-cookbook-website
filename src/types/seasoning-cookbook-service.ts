@@ -109,7 +109,9 @@ export interface SeasoningCookbookUser {
 export interface Recipe {
   _id: string;
   authorId: string;
+  authorNickname: string;
   pokemonId: string;
+  pokemon: Pokemon;
   seasoningItemIds: string[];
   description: string | null;
   category: RecipeCategory[];

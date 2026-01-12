@@ -5,6 +5,8 @@ interface GetRecipesParams {
   sortBy?: "most-upvotes" | "least-upvotes";
   pokemonIds?: string | string[];
   seasoningItemIds?: string | string[];
+  page?: number;
+  limit?: number;
 }
 
 export const getRecipes = async (
@@ -28,6 +30,14 @@ export const getRecipes = async (
       ? params.seasoningItemIds
       : [params.seasoningItemIds];
     queryParams.append("seasoningItemIds", seasoningItemIdsArray.join(","));
+  }
+
+  if (params?.page !== undefined) {
+    queryParams.append("page", params.page.toString());
+  }
+
+  if (params?.limit !== undefined) {
+    queryParams.append("limit", params.limit.toString());
   }
 
   const queryString = queryParams.toString();

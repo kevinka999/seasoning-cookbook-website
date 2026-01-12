@@ -17,11 +17,11 @@ const renderPokemonItem = (
       />
 
       <div className="flex flex-col">
-        <span className="minecraft-text-shadow text-md text-white">
+        <span className="minecraft-text-shadow font-minecraft text-md text-white">
           {pokemon.name}
         </span>
 
-        <span className="text-sm text-[#3e3e3e]">
+        <span className="text-secondary text-sm">
           #{pokemon.registrationNumber.padStart(3, "0")}
         </span>
       </div>

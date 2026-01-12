@@ -69,7 +69,7 @@ export const SetupModal = ({ isOpen }: SetupModalProps) => {
     >
       <form onSubmit={handleSubmit} className="flex flex-col gap-4 p-4">
         <div className="flex flex-col gap-2">
-          <label htmlFor="nickname" className="text-base text-black">
+          <label htmlFor="nickname" className="text-base text-primary">
             Choose your nickname
           </label>
           <Input

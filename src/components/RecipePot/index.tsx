@@ -21,7 +21,7 @@ export const RecipePot = ({
       variant="sunken"
     >
       <img src={cookingPotImage} alt="Cooking Pot" className="h-24 w-24" />
-      <span className="text-lg text-black">Recipe</span>
+      <span className="text-lg text-primary">Recipe</span>
       <div className="flex flex-row gap-2">
         {items.map((item, index) => (
           <div key={index} className="flex flex-col items-center gap-2">
